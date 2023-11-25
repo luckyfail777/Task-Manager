@@ -1,0 +1,175 @@
+﻿<Window x:Class="TaskManager.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TaskManager"
+        mc:Ignorable="d"
+        Title="TaskManager_KB" Height="500" Width="1000">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="9*"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="0.05*"/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="0.05*" />
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <Border BorderBrush="SkyBlue" Background="SkyBlue" CornerRadius="6"  Height="30" VerticalAlignment="Top"  BorderThickness="2" Grid.Column="0" Grid.Row="1" Margin="5">
+            <TextBlock Foreground="White" FontSize="18" Height="30" VerticalAlignment="Top" Text="Надо сделать" Margin="5 0"/>
+        </Border>
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Column="0" Grid.Row="1" Margin="5">
+            <ListBox x:Name="ToDo" Height="NaN" Margin="0,35,0,0" HorizontalContentAlignment="Stretch">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Border BorderBrush="Gray" Height="150" BorderThickness="1" CornerRadius="2">
+                            <Grid Grid.Column="0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="1.5*"/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition Height="2*"/>
+                                    <RowDefinition Height="1.5*"/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+
+                                <Border Grid.Row="0" CornerRadius="5" Height="20" Width="60" Background="SkyBlue" HorizontalAlignment="Left" Margin="2 0">
+                                    <TextBlock Foreground="White" FontSize="10" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding CreatedDateFormatted}"/>
+                                </Border>
+                                <Border Grid.Row="0" CornerRadius="5" Height="20" Width="60" Background="#FA8072" HorizontalAlignment="Right" Margin="2 0">
+                                    <TextBlock Foreground="White" FontSize="10" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding DeadlineDateFormatted}"/>
+                                </Border>
+
+                                <TextBlock Grid.Row="1" FontSize="10" Text="{Binding Name}" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="2 0"/>
+
+                                <TextBlock Grid.Row="2" FontSize="10" VerticalAlignment="Center" HorizontalAlignment="Left" Text="{Binding Priority}" Margin="2 0"/>
+
+                                <TextBox Grid.Row="3" Width="233.5" Height="35" FontSize="10" BorderThickness="0" VerticalAlignment="Center" HorizontalAlignment="Center" IsReadOnly="True" TextWrapping="Wrap" Text="{Binding Description}" Margin="2 0"/>
+
+                                <Grid Grid.Row="4">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <Button Grid.Column="0" Background="#FF00FAA6" Foreground="White" Margin="2" Width="auto" BorderThickness="0" Content="Редактировать" Tag="{Binding Id}" Click="EditTask_Click"  FontSize="10"/>
+                                    <Button Grid.Column="1" Background="Orange" Foreground="White" BorderThickness="0" Margin="2" Width="auto" Content="Начать работу" Tag="{Binding Id}" Click="ToWIP_Click" FontSize="10"/>
+                                    <Button Grid.Column="2" Background="#FA8072" Foreground="White" Margin="2" Width="auto" BorderThickness="0" Content="Удалить" Tag="{Binding Id}" Click="DeleteTask_Click" FontSize="10"/>
+                                </Grid>
+
+                                <TextBlock Grid.Row="5" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="10" Text="{Binding Id}" Margin="2 0"/>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </ScrollViewer>
+        <Button x:Name="addTask" Grid.Row="1" Background="SkyBlue" Foreground="White" BorderThickness="0" Height="30" Width="240" VerticalAlignment="Bottom" Content="+" FontSize="20" Margin="5" Click="AddTask_Click"/>
+
+        <Border Grid.Column="2" Grid.Row="1" BorderThickness="2" Background="Orange" BorderBrush="Orange" Height="30" VerticalAlignment="Top" CornerRadius="6" Margin="5">
+            <TextBlock Foreground="White" FontSize="18" Text="В работе" Margin="5 0"/>
+        </Border>
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Column="2" Grid.Row="1" Margin="5">
+            <ListBox x:Name="InProgress" Height="NaN" Margin="0,35,0,0" HorizontalContentAlignment="Stretch">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Border BorderBrush="Gray" Height="150" BorderThickness="1" CornerRadius="2">
+                            <Grid Grid.Column="0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="1.5*"/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition Height="2*"/>
+                                    <RowDefinition Height="1.5*"/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+
+                                <Border Grid.Row="0" CornerRadius="5" Height="20" Width="60" Background="SkyBlue" HorizontalAlignment="Left" Margin="2 0">
+                                    <TextBlock Foreground="White" FontSize="10" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding CreatedDateFormatted}"/>
+                                </Border>
+                                <Border Grid.Row="0" CornerRadius="5" Height="20" Width="60" Background="#FA8072" HorizontalAlignment="Right" Margin="2 0">
+                                    <TextBlock Foreground="White" FontSize="10" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding DeadlineDateFormatted}"/>
+                                </Border>
+
+                                <TextBlock Grid.Row="1" FontSize="10" Text="{Binding Name}" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="2 0"/>
+
+                                <TextBlock Grid.Row="2" FontSize="10" VerticalAlignment="Center" HorizontalAlignment="Left" Text="{Binding Priority}" Margin="2 0"/>
+
+                                <TextBox Grid.Row="3" Width="233.5" Height="35" FontSize="10" BorderThickness="0" VerticalAlignment="Center" HorizontalAlignment="Center" IsReadOnly="True" TextWrapping="Wrap" Text="{Binding Description}" Margin="2 0"/>
+
+                                <Grid Grid.Row="4">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <Button Grid.Column="0" Background="#FF00FAA6" Foreground="White" Margin="2" Width="auto" BorderThickness="0" Content="Редактировать" Tag="{Binding Id}" Click="EditTask_Click"  FontSize="10"/>
+                                    <Button Grid.Column="1" Background="Green" Foreground="White" BorderThickness="0" Margin="2" Width="auto" Content="Завершить работу" Tag="{Binding Id}" Click="ToDone_Click" FontSize="10"/>
+                                    <Button Grid.Column="2" Background="#FA8072" Foreground="White" Margin="2" Width="auto" BorderThickness="0" Content="Удалить" Tag="{Binding Id}" Click="DeleteTask_Click" FontSize="10"/>
+                                </Grid>
+
+                                <TextBlock Grid.Row="5" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="10" Text="{Binding Id}" Margin="2 0"/>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </ScrollViewer>
+
+        <Border Grid.Column="4" Grid.Row="1" BorderThickness="2" Background="Green" BorderBrush="Green" Height="30" VerticalAlignment="Top" CornerRadius="6" Margin="5">
+            <TextBlock Foreground="White" FontSize="18" Text="Сделано" Margin="5 0"/>
+        </Border>
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Column="4" Grid.Row="1" Margin="5">
+            <ListBox x:Name="Done" Height="NaN" Margin="0,35,0,0" HorizontalContentAlignment="Stretch">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Border BorderBrush="Gray" Height="150" BorderThickness="1" CornerRadius="2">
+                            <Grid Grid.Column="0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="1.5*"/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition Height="2*"/>
+                                    <RowDefinition Height="1.5*"/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+
+                                <Border Grid.Row="0" CornerRadius="5" Height="20" Width="60" Background="SkyBlue" HorizontalAlignment="Left" Margin="2 0">
+                                    <TextBlock Foreground="White" FontSize="10" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding CreatedDateFormatted}"/>
+                                </Border>
+                                <Border Grid.Row="0" CornerRadius="5" Height="20" Width="60" Background="#FA8072" HorizontalAlignment="Right" Margin="2 0">
+                                    <TextBlock Foreground="White" FontSize="10" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding DeadlineDateFormatted}"/>
+                                </Border>
+
+                                <TextBlock Grid.Row="1" FontSize="10" Text="{Binding Name}" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="2 0"/>
+
+                                <TextBlock Grid.Row="2" FontSize="10" VerticalAlignment="Center" HorizontalAlignment="Left" Text="{Binding Priority}" Margin="2 0"/>
+
+                                <TextBox Grid.Row="3" Width="233.5" Height="35" FontSize="10" BorderThickness="0" VerticalAlignment="Center" HorizontalAlignment="Center" IsReadOnly="True" TextWrapping="Wrap" Text="{Binding Description}" Margin="2 0"/>
+
+                                <Grid Grid.Row="4">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <Button Grid.Column="0" Background="#FF00FAA6" Foreground="White" Margin="2" Width="auto" BorderThickness="0" Content="Редактировать" Tag="{Binding Id}" Click="EditTask_Click"  FontSize="10"/>
+                                    <Button Grid.Column="1" Background="#FA8072" Foreground="White" Margin="2" Width="auto" BorderThickness="0" Content="Удалить" Tag="{Binding Id}" Click="DeleteTask_Click" FontSize="10"/>
+                                </Grid>
+
+                                <TextBlock Grid.Row="5" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="10" Text="{Binding Id}" Margin="2 0"/>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </ScrollViewer>
+
+        <TextBlock Text="Поиск:" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5 0"/>
+        <TextBox Grid.Column="0" Grid.ColumnSpan="5" x:Name="searchBar" Height="30" Width="600" Margin="5 0" VerticalAlignment="Center" HorizontalAlignment="Center" KeyDown="searchBar_KeyDown" />
+    </Grid>
+</Window>
